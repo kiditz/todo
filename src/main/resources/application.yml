@@ -1,0 +1,9 @@
+spring:
+  freemarker:
+    template-loader-path: classpath:/templates
+    suffix: .ftl
+
+springdoc:
+  swagger-ui:
+    path: swagger-ui.html
+  packagesToScan: com.savantdegrees.todo.api.v1

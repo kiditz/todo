@@ -1,0 +1,85 @@
+plugins {
+	id 'org.springframework.boot' version '2.3.5.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id 'groovy'
+	id 'jacoco'
+	id "org.sonarqube" version "3.0"
+}
+
+group = 'com.savantdegrees'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+	jcenter()
+}
+
+sonarqube {
+	properties {
+		property "sonar.sourceEncoding", "UTF-8"
+		property "sonar.host.url", "http://localhost:9000"
+		property 'sonar.projectName', 'Todo'
+		property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
+		property "sonar.groovy.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
+		property "sonar.groovy.binaries", "${project.buildDir.name}${File.separator}classes"
+	}
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-freemarker'
+	implementation 'org.springdoc:springdoc-openapi-groovy:1.4.8'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.codehaus.groovy:groovy'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.4.8'
+
+	runtimeOnly 'org.postgresql:postgresql'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+}
+
+test {
+	finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+jacocoTestReport {
+	dependsOn test
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: [
+					'com/savantdegrees/todo/repository/**',
+					'com/savantdegrees/todo/entity/**',
+					'com/savantdegrees/todo/exception/**',
+					'com/savantdegrees/todo/config/**',
+					'com/savantdegrees/todo/common/**',
+					'com/savantdegrees/todo/Application.class'
+			])
+		}))
+	}
+	reports {
+		xml.enabled false
+		html.enabled true
+	}
+}
+
+jacoco {
+	toolVersion = "0.8.5"
+	reportsDir = file("$buildDir/jacoco")
+}
+
+test {
+	useJUnitPlatform()
+}
+
+tasks {
+	bootJar {
+		archiveFileName.set("app.jar")
+	}
+}
+
+test {
+	useJUnitPlatform()
+}

@@ -1,0 +1,16 @@
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: false
+    open-in-view: false
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://postgres:5432/todo_app
+    username: admin
+    password: admin@1234
+    driverClassName: org.postgresql.Driver

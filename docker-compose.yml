@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin@1234
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+    networks:
+      - appnet
+  todo:
+    image: todo
+    container_name: todo
+    build: .
+    depends_on:
+        - postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    ports:
+    - "8000:8080"
+    networks:
+      - appnet
+volumes:
+  postgresql:
+  postgresql_data:
+networks:
+  appnet:
