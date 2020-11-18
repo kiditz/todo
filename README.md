@@ -26,7 +26,7 @@ __Linux__
 ```sh
 google-chrome build/jacoco/test/html/index.html
 ```
-## Run without with spring boot
+## Run with spring boot application runner
 
 ```sh
 ./gradlew bootRun
