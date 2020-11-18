@@ -11,6 +11,6 @@ spring:
   datasource:
     platform: postgres
     url: jdbc:postgresql://postgres:5432/todo_app
-    username: admin
+    username: todo_app
     password: admin@1234
     driverClassName: org.postgresql.Driver

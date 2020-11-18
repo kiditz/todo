@@ -6,7 +6,7 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_USER=admin
+      - POSTGRES_USER=todo_app
       - POSTGRES_PASSWORD=admin@1234
     volumes:
       - postgresql:/var/lib/postgresql
