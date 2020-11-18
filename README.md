@@ -38,3 +38,8 @@ google-chrome build/jacoco/test/html/index.html
 ./gradlew bootJar
 docker-compose up -d --build todo 
 ```
+
+## Open documentation
+```
+http://localhost:8000/swagger-ui
+```
