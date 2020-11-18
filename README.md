@@ -41,5 +41,5 @@ docker-compose up -d --build todo
 
 ## Open documentation
 ```
-http://localhost:8000/swagger-ui
+http://localhost:8000/swagger-ui.html
 ```
